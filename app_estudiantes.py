@@ -30,25 +30,35 @@ st.markdown("""
         box-shadow: 0 0 8px rgba(77, 184, 255, 0.3) !important;
     }
 
-    /* Diseño del Botón Principal */
+    /* DISEÑO DEL BOTÓN PRINCIPAL ACTUALIZADO PARA QUE NO SE CORTE EL TEXTO */
     div.stButton > button {
         background-color: #002b49 !important;
         color: white !important;
         border-radius: 8px !important;
         border: none !important;
-        padding: 10px 24px !important;
+        padding: 12px 15px !important; 
         font-weight: 600 !important;
-        letter-spacing: 1px !important;
+        letter-spacing: 0.5px !important;
+        width: 100% !important;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
-        transition: all 0.3s ease-in-out !important;
-        width: 100%;
+        font-size: 13px !important; 
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     }
 
-    /* Efecto al pasar el mouse sobre el botón (Hover) */
+    /* EFECTO DE SALTAR (POPPING) AL PASAR EL MOUSE (HOVER) */
     div.stButton > button:hover {
-        background-color: #004080 !important;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.15) !important;
-        transform: translateY(-2px);
+        background-color: #004d80 !important; 
+        transform: translateY(-5px) scale(1.03) !important;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+    }
+    
+    /* Efecto al hacer CLIC (Active) para que se sienta que se presiona */
+    div.stButton > button:active {
+        transform: translateY(-1px) scale(0.99) !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
     }
     
     /* Estilizar las pestañas (Tabs) para que se vean más limpias */
@@ -64,8 +74,8 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Se aplica un dise\u00f1o corporativo sobrio: azul oscuro, blanco, gris claro y detalles celeste institucional.
-# Se deshabilitan expl\u00edcitamente los estilos predeterminados de alertas para evitar emojis de Streamlit.
+# Se aplica un diseño corporativo sobrio: azul oscuro, blanco, gris claro y detalles celeste institucional.
+# Se deshabilitan explícitamente los estilos predeterminados de alertas para evitar emojis de Streamlit.
 CSS = """
 <style>
 /* Fondo principal y color de texto general */
@@ -80,7 +90,7 @@ CSS = """
     border-right: 1px solid #143559;
 }
 
-/* Tipograf\u00eda formal para todo el sistema */
+/* Tipografía formal para todo el sistema */
 h1, h2, h3, h4, h5, p, span {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -120,24 +130,6 @@ footer {visibility: hidden;}
     margin-right: 5px;
 }
 
-/* Dise\u00f1o de Botones */
-.stButton>button {
-    background-color: #0056B3;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 24px;
-    font-weight: 600;
-    transition: all 0.3s;
-    text-transform: uppercase;
-    font-size: 14px;
-}
-.stButton>button:hover {
-    background-color: #48CAE4;
-    color: #001529;
-    border-color: #48CAE4;
-}
-
 /* Campos de entrada de texto generales */
 .stTextInput>div>div>input {
     background-color: #003460;
@@ -146,7 +138,7 @@ footer {visibility: hidden;}
     font-size: 16px;
 }
 
-/* Campo de entrada de Carnet Espec\u00edfico (Aumentar tama\u00f1o de n\u00fameros) */
+/* Campo de entrada de Carnet Específico (Aumentar tamaño de números) */
 div[data-testid="stTextInput"] input {
     font-size: 24px !important;
     font-weight: bold;
@@ -154,7 +146,7 @@ div[data-testid="stTextInput"] input {
     letter-spacing: 2px;
 }
 
-/* Pesta\u00f1as (Tabs) */
+/* Pestañas (Tabs) */
 .stTabs [data-baseweb="tab-list"] {
     gap: 30px;
 }
@@ -235,7 +227,7 @@ st.markdown(CSS, unsafe_allow_html=True)
 DATA_FILE = "datos_estudiantes.xlsx"
 CONFIG_FILE = "config.json"
 LOGO_FILE = "logo_unicen.png"
-ADMIN_PASSWORD = "4834735012vrY" # Contrase\u00f1a por defecto para el panel
+ADMIN_PASSWORD = "4834735012vrY" # Contraseña por defecto para el panel
 
 # --- 4. FUNCIONES AUXILIARES ---
 def formal_message(text, msg_type="info", container=st):
@@ -247,7 +239,7 @@ def load_data(filepath):
     """Carga de datos desde Excel asegurando limpieza y optimizando redimiento."""
     try:
         if os.path.exists(filepath):
-            # Cargar todo como string para mantener consistencia y evitar errores num\u00e9ricos en matr\u00edculas o carnets
+            # Cargar todo como string para mantener consistencia y evitar errores numéricos en matrículas o carnets
             df = pd.read_excel(filepath, dtype=str)
             df.columns = [str(col).strip().upper() for col in df.columns]
             # Limpiar datos crudos
@@ -258,7 +250,7 @@ def load_data(filepath):
     return None
 
 def load_config():
-    """Recupera la configuraci\u00f3n de columnas seleccionadas por el administrador."""
+    """Recupera la configuración de columnas seleccionadas por el administrador."""
     if os.path.exists(CONFIG_FILE):
         try:
             with open(CONFIG_FILE, "r", encoding="utf-8") as f:
@@ -319,9 +311,9 @@ with st.sidebar:
                     st.cache_data.clear()
                     formal_message("El archivo base ha sido reemplazado correctamente.", msg_type="success")
                 except Exception as e:
-                    formal_message("Ocurri\u00f3 un error al guardar el archivo.", msg_type="error")
+                    formal_message("Ocurrió un error al guardar el archivo.", msg_type="error")
 
-        # Cargar los datos actuales para configurar permisos de visualizaci\u00f3n
+        # Cargar los datos actuales para configurar permisos de visualización
         admin_df = load_data(DATA_FILE)
 
         st.markdown("<br><h3>2. Columnas Visibles</h3>", unsafe_allow_html=True)
@@ -336,10 +328,10 @@ with st.sidebar:
                 "Seleccione los datos habilitados para su despliegue a los estudiantes",
                 options=all_columns_available,
                 default=valid_visibility,
-                help="Todas las columnas seleccionadas en esta lista podr\u00e1n ser vistas por los estudiantes en la plataforma principal."
+                help="Todas las columnas seleccionadas en esta lista podrán ser vistas por los estudiantes en la plataforma principal."
             )
 
-            if st.button("Guardar Configuraci\u00f3n de Permisos"):
+            if st.button("Guardar Configuración de Permisos"):
                 save_config(selected_cols)
                 formal_message("Los permisos de privacidad de datos se actualizaron de manera correcta.", msg_type="success")
         else:
@@ -357,7 +349,7 @@ df = load_data(DATA_FILE)
 
 if df is not None and not df.empty:
     
-    # 6.1 Detectar columna de b\u00fasqueda de Carnet de forma inteligente
+    # 6.1 Detectar columna de búsqueda de Carnet de forma inteligente
     col_carnet = None
     possible_carnet_names = ["CARNET", "CI", "C.I.", "DOCUMENTO"]
     
@@ -366,7 +358,7 @@ if df is not None and not df.empty:
             col_carnet = c
             break
             
-    # Fallback m\u00e1s flexible si no hay una exact match
+    # Fallback más flexible si no hay una exact match
     if not col_carnet:
         for c in df.columns:
             if "CARNET" in c.upper() or "CI" == c.upper():
@@ -374,18 +366,19 @@ if df is not None and not df.empty:
                 break
 
     if not col_carnet:
-        formal_message("Advertencia de estructura: No se pudo identificar una categor\u00eda de documento de identidad en los datos cargados. Se requiere una columna denominada 'CARNET' o 'CI'.", msg_type="error")
+        formal_message("Advertencia de estructura: No se pudo identificar una categoría de documento de identidad en los datos cargados. Se requiere una columna denominada 'CARNET' o 'CI'.", msg_type="error")
         st.stop()
 
     # 6.2 Buscador
     col_spacer_l, col_search, col_spacer_r = st.columns([1.5, 2, 1.5]) # Reduciendo el ancho del buscador (columna central)
     with col_search:
         st.markdown("<h3 style='text-align: center; margin-bottom: 15px;'>INGRESA TU NÚMERO DE CARNET</h3>", unsafe_allow_html=True)
-        search_value = st.text_input("Ingrese su n\u00famero de carnet", placeholder="Ejemplo: 9876543", label_visibility="collapsed").strip()
+        search_value = st.text_input("Ingrese su número de carnet", placeholder="Ejemplo: 9876543", label_visibility="collapsed").strip()
         
         button_col1, button_col2, button_col3 = st.columns([1, 1.5, 1])
         with button_col2:
             st.markdown("<br>", unsafe_allow_html=True)
+            # Aquí puedes cambiar el texto a "CONSULTAR HISTORIAL ACADEMICO" si lo deseas
             run_search = st.button("Buscar Información", use_container_width=True)
 
     # 6.3 Despliegue de Datos del Estudiante
@@ -398,12 +391,12 @@ if df is not None and not df.empty:
         if student_records.empty:
             col_spacer3, col_msg, col_spacer4 = st.columns([1, 2, 1])
             with col_msg:
-                formal_message("No existen registros asociados a la acreditaci\u00f3n proporcionada. Por favor, revise el documento ingresado o consulte en las oficinas administrativas.", msg_type="warning")
+                formal_message("No existen registros asociados a la acreditación proporcionada. Por favor, revise el documento ingresado o consulte en las oficinas administrativas.", msg_type="warning")
         else:
             visible_columns_config = load_config()
 
             if not visible_columns_config:
-                formal_message("Sistema restringido. La administraci\u00f3n a\u00fan no ha autorizado la visualizaci\u00f3n p\u00fablica de datos.", msg_type="warning")
+                formal_message("Sistema restringido. La administración aún no ha autorizado la visualización pública de datos.", msg_type="warning")
             else:
                 # Extraer primer registro para constituir la tarjeta identificativa general
                 first_record = student_records.iloc[0]
@@ -422,7 +415,7 @@ if df is not None and not df.empty:
                 if not nombre_completo:
                     nombre_completo = "REGISTRO ESTUDIANTIL VERIFICADO"
 
-                carrera = str(first_record.get('CARRERA', 'Informaci\u00f3n no disponible')).upper()
+                carrera = str(first_record.get('CARRERA', 'Información no disponible')).upper()
                 carrera = "NO DOCUMENTADO" if carrera.lower() == "nan" else carrera
 
                 semestre = str(first_record.get('SEMESTRE', 'N/A')).upper()
@@ -456,7 +449,7 @@ if df is not None and not df.empty:
                 <br>
                 """, unsafe_allow_html=True)
 
-                # Definir palabras clave que distingan columnas de naturaleza financiera versus acad\u00e9mica
+                # Definir palabras clave que distingan columnas de naturaleza financiera versus académica
                 financie_keywords = ['PLAN', 'ECONOMICO', 'ADMISION', 'PAGO', 'CONTADO', 'REINTEGROS', 'MATRICULA', 'CUOTA', 'MONTO', 'FINANCIERA', 'DEUDA']
                 
                 # Filtrar columnas solicitadas que efectivamente existan en el DataFrame actual
@@ -466,24 +459,22 @@ if df is not None and not df.empty:
                 col_financieras = [c for c in active_columns if any(k in c.upper() for k in financie_keywords)]
                 col_academicas = [c for c in active_columns if c not in col_financieras]
 
-                # Segmentaci\u00f3n por pesta\u00f1as
-                tab_academico, tab_financiero = st.tabs(["Informaci\u00f3n Acad\u00e9mica", "Estado Financiero"])
+                # Segmentación por pestañas
+                tab_academico, tab_financiero = st.tabs(["Información Académica", "Estado Financiero"])
 
                 with tab_academico:
                     if col_academicas:
                         st.markdown("<h3 style='margin-bottom: 15px;'>Detalle de Asignaturas y Calificaciones</h3>", unsafe_allow_html=True)
                         st.markdown(render_custom_table(student_records[col_academicas].drop_duplicates()), unsafe_allow_html=True)
                     else:
-                        formal_message("No se han otorgado permisos en este momento para consultar su informaci\u00f3n acad\u00e9mica. Favor consultar de nuevo m\u00e1s tarde.", msg_type="info")
+                        formal_message("No se han otorgado permisos en este momento para consultar su información académica. Favor consultar de nuevo más tarde.", msg_type="info")
 
                 with tab_financiero:
                     if col_financieras:
                         st.markdown("<h3 style='margin-bottom: 15px;'>Detalle de Aranceles y Pagos</h3>", unsafe_allow_html=True)
                         st.markdown(render_custom_table(student_records[col_financieras].drop_duplicates()), unsafe_allow_html=True)
                     else:
-                        formal_message("La informaci\u00f3n respecto al estado del plan econ\u00f3mico se encuentra restringida bajo la presente configuraci\u00f3n del departamento.", msg_type="info")
+                        formal_message("La información respecto al estado del plan económico se encuentra restringida bajo la presente configuración del departamento.", msg_type="info")
 
 else:
-    formal_message("El portal se encuentra en mantenimiento. La base de datos estudiantil no est\u00e1 disponible por el momento. Disculpe los inconvenientes.", msg_type="error")
-
-
+    formal_message("El portal se encuentra en mantenimiento. La base de datos estudiantil no está disponible por el momento. Disculpe los inconvenientes.", msg_type="error")
