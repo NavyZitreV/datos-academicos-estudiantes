@@ -386,7 +386,7 @@ if df is not None and not df.empty:
         button_col1, button_col2, button_col3 = st.columns([1, 1.5, 1])
         with button_col2:
             st.markdown("<br>", unsafe_allow_html=True)
-            run_search = st.button("Buscar Informaci\u00f3n Acad\u00e9mica", use_container_width=True)
+            run_search = st.button("Buscar Información", use_container_width=True)
 
     # 6.3 Despliegue de Datos del Estudiante
     if run_search and search_value:
@@ -485,4 +485,5 @@ if df is not None and not df.empty:
 
 else:
     formal_message("El portal se encuentra en mantenimiento. La base de datos estudiantil no est\u00e1 disponible por el momento. Disculpe los inconvenientes.", msg_type="error")
+
 
