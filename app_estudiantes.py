@@ -7,7 +7,7 @@ import os
 st.set_page_config(
     page_title="Portal de Consulta Estudiantil",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"  # <-- ESTA ES LA PALABRA MÁGICA
 )
 
 # --- 2. ESTILOS CSS PERSONALIZADOS (MODO OSCURO INSTITUCIONAL) ---
@@ -478,3 +478,4 @@ if df is not None and not df.empty:
 
 else:
     formal_message("El portal se encuentra en mantenimiento. La base de datos estudiantil no está disponible por el momento. Disculpe los inconvenientes.", msg_type="error")
+
