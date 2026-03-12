@@ -1,4 +1,0 @@
-datos_estudiantes.xlsx
-config.json
-__pycache__/
-.streamlit/
