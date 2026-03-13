@@ -227,7 +227,7 @@ st.markdown(CSS, unsafe_allow_html=True)
 DATA_FILE = "datos_estudiantes.xlsx"
 CONFIG_FILE = "config.json"
 LOGO_FILE = "logo_unicen.png"
-ADMIN_PASSWORD = "4834735012vrY" # Contraseña por defecto para el panel
+ADMIN_PASSWORD = st.secrets["ADMIN_PASSWORD"] # Contraseña por defecto para el panel
 
 # --- 4. FUNCIONES AUXILIARES ---
 def formal_message(text, msg_type="info", container=st):
@@ -478,4 +478,5 @@ if df is not None and not df.empty:
 
 else:
     formal_message("El portal se encuentra en mantenimiento. La base de datos estudiantil no está disponible por el momento. Disculpe los inconvenientes.", msg_type="error")
+
 
