@@ -4,7 +4,6 @@ import os
 import unicodedata
 
 # --- 1. CONFIGURACION DE PAGINA E INSTRUCCIONES ---
-# Iniciamos con la barra lateral cerrada para que no distraiga al estudiante
 st.set_page_config(
     page_title="Portal de Consulta Estudiantil - UNICEN",
     layout="wide",
@@ -20,10 +19,6 @@ def clean_accent_and_upper(text):
 # --- 3. ESTILOS CSS PERSONALIZADOS (MODO PREMIUM UNICEN) ---
 st.markdown("""
     <style>
-    /* Ocultar el botón de la barra lateral para estudiantes (opcional, se puede dejar para admin) */
-    /* Si quieres ocultarlo totalmente para todos y solo entrar por URL, descomenta lo siguiente: */
-    /* [data-testid="collapsedControl"] { display: none; } */
-
     .stTextInput label p {
         color: #4DB8FF !important;
         font-weight: 700 !important;
@@ -78,7 +73,7 @@ st.markdown("""
 
 # --- 4. CONSTANTES ---
 DATA_FILE = "datos_estudiantes.xlsx"
-LOGO_FILE = "Logo.png"
+LOGO_FILE = "Logo.png" # El nombre es exacto ahora
 ADMIN_PASSWORD = "4834735vrY" 
 
 def formal_message(text, msg_type="info", container=st):
@@ -96,12 +91,12 @@ def load_data(filepath):
     return None
 
 # --- 5. LOGICA DE ACCESO SECRETO (MODO ADMIN) ---
-# Leemos los parámetros de la URL. Ejemplo: http://localhost:8501/?view=admin
 query_params = st.query_params
 show_admin = query_params.get("view") == "admin"
 
 if show_admin:
     with st.sidebar:
+        # Mostramos el logo también aquí para el admin
         if os.path.exists(LOGO_FILE): 
             st.image(LOGO_FILE, use_container_width=True)
             st.markdown("<br>", unsafe_allow_html=True)
@@ -129,9 +124,15 @@ if show_admin:
         elif admin_pass != "": 
             formal_message("Clave Incorrecta", msg_type="error")
 
-# --- 6. INTERFAZ PRINCIPAL DEL ESTUDIANTE ---
+# --- 6. INTERFAZ PRINCIPAL DEL ESTUDIANTE (CON LOGO VISIBLE PARA TODOS) ---
+# Usamos columnas para centrar el logo
+col_logo_cent, _ = st.columns([1, 4]) # Lo ponemos a la izquierda o centro
+with col_logo_cent:
+    if os.path.exists(LOGO_FILE):
+        st.image(LOGO_FILE, width=200) # Tamaño controlado
+
 st.markdown("""
-    <div style='text-align: center; margin-top: 20px; margin-bottom: 40px;'>
+    <div style='text-align: center; margin-top: 0px; margin-bottom: 40px;'>
         <h1 style='font-size: 42px; font-weight: 900; letter-spacing: -1px; margin-bottom: 0;'>PORTAL DE CONSULTA ESTUDIANTIL</h1>
         <p style='color: #4DB8FF; font-size: 18px; letter-spacing: 2px; font-weight: 500;'>UNIVERSIDAD CENTRAL - UNICEN</p>
     </div>
@@ -172,7 +173,6 @@ if df is not None and not df.empty:
                             break
                     
                     if student_found is not None:
-                        # (Logica de renderizado de credencial idéntica a la anterior...)
                         nombre_val = str(student_found.get(col_nombres, '')).strip()
                         apellido_val = str(student_found.get(col_apellidos, '')).strip() if col_apellidos else ""
                         nombre_completo = f"{nombre_val} {apellido_val}".strip().upper()
