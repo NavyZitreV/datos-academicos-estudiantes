@@ -68,6 +68,10 @@ st.markdown("""
     .msg-success { background-color: #003B24; color: #E8F5E9; border-left: 5px solid #00E676; }
     .msg-error { background-color: #4A0000; color: #FFEBEE; border-left: 5px solid #FF1744; }
     .msg-warning { background-color: #5C4000; color: #FFF8E1; border-left: 5px solid #FFC400; }
+
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
     </style>
 """, unsafe_allow_html=True)
 
