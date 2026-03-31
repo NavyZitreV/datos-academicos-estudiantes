@@ -133,7 +133,7 @@ if show_admin:
 st.markdown("""
     <div style='text-align: center; margin-top: 20px; margin-bottom: 40px;'>
         <h1 style='font-size: 42px; font-weight: 900; letter-spacing: -1px; margin-bottom: 0;'>PORTAL DE CONSULTA ESTUDIANTIL</h1>
-        <p style='color: #4DB8FF; font-size: 18px; letter-spacing: 2px; font-weight: 500;'>UNIVERISIDAD CENTRAL - UNICEN</p>
+        <p style='color: #4DB8FF; font-size: 18px; letter-spacing: 2px; font-weight: 500;'>UNIVERSIDAD CENTRAL - UNICEN</p>
     </div>
 """, unsafe_allow_html=True)
 
