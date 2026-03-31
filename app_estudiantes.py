@@ -160,8 +160,8 @@ if df is not None and not df.empty:
         
         _, col_search_area, _ = st.columns([1, 1.8, 1])
         with col_search_area:
-            search_carnet = st.text_input("INTRODUZCA SU NÚMERO DE CARNET / CI", placeholder="Ej: 9876543").strip()
-            search_nombre = st.text_input("INTRODUZCA SU NOMBRE(S) (Sin tildes preferentemente)", placeholder="Ej: JUAN PABLO").strip()
+            search_carnet = st.text_input("INTRODUZCA SU NÚMERO DE CARNET / CI Ej: 9876543", placeholder="Ej: 9876543").strip()
+            search_nombre = st.text_input("INTRODUZCA SU NOMBRE o NOMBRES (Sin tildes preferentemente)  Ej: JUAN PABLO", placeholder="Ej: JUAN PABLO").strip()
             st.markdown("<br>", unsafe_allow_html=True)
             run_btn = st.button("VALIDAR Y MOSTRAR MI UNICÓDIGO")
 
