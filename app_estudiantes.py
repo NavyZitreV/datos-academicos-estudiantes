@@ -72,6 +72,11 @@ st.markdown("""
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+
+    /* Eliminar botones flotantes o marcas de agua en versión móvil */
+    [data-testid="stToolbar"] {visibility: hidden !important;}
+    [data-testid="stDecoration"] {visibility: hidden !important;}
+    [class^="viewerBadge"] {display: none !important;}
     </style>
 """, unsafe_allow_html=True)
 
