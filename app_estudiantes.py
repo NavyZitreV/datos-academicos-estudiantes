@@ -78,7 +78,7 @@ st.markdown("""
 # --- 4. CONSTANTES ---
 DATA_FILE = "datos_estudiantes.xlsx"
 LOGO_FILE = "Logo.png" # El nombre es exacto ahora
-ADMIN_PASSWORD = "4834735vrY" 
+ADMIN_PASSWORD = st.secrets["admin_password"] 
 
 def formal_message(text, msg_type="info", container=st):
     container.markdown(f'<div class="msg-box msg-{msg_type}">{text}</div>', unsafe_allow_html=True)
